@@ -31,7 +31,6 @@
 
 <script>
 export default {
-  name: "Notes",
   props: {
     notes: {
       type: Array,
@@ -44,21 +43,21 @@ export default {
   },
   methods: {
     removeNote(index) {
-      this.$emit('remove', index)
+      this.$store.dispatch('removeNote', index)
     },
 
     showInput(index){
-      this.$emit('showInput', index)
+      this.$store.dispatch('showInput', index)
     },
 
     changeTitle(index){
-      this.$emit('changeTitle', index)
+      this.$store.dispatch('changeTitle', index)
     },
 
     oldTitle(index){
-      this.$emit('oldTitle', index)
+      this.$store.dispatch('titleOld', index)
     }
-  }
+  },
 }
 </script>
 

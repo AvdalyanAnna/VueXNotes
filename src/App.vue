@@ -1,5 +1,5 @@
 <template>
-  <div class="wrappeer">
+  <div class="wrapper">
     <!--    <header></header>-->
     <header class="navbar">
       <div class="container">
@@ -15,16 +15,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-  components: {},
-  data() {
-    return {
-    }
-  }
-}
-</script>
 
 <style lang="scss">
 .navbar-link {

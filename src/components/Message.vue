@@ -1,20 +1,16 @@
 <template>
-  <div class="message">
+  <div v-if="message" class="message">
     <p>{{ message }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Message",
-  props: {
-    message: {
-      default: null,
-      type: String,
-      required:true,
+  computed: {
+    message(){
+      return this.$store.getters.getError;
     },
   }
-
 }
 </script>
 

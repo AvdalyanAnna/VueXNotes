@@ -7,7 +7,6 @@ export default {
     getters: {
         getPriorityList(state) {
             return state.priorityList
-
         }
     }
 }

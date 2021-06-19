@@ -17,42 +17,33 @@
 
 <script>
 export default {
-  name: "NewNote",
-
-  props: {
-    note: {
-      type: Object,
-      required: true,
-    },
-
-    types: {
-      type: Array,
-      required: true,
-    }
-  },
   methods: {
     addNote() {
-      let message = null;
       if (this.note.title === '') {
-        message = "Title can't be blank!";
-        this.$emit('addNote', message)
+        this.$store.dispatch('setError', "Title can't be blank!")
         return false;
       }
 
       if (this.note.type === 0) {
-        message = "Type not selected!";
-        this.$emit('addNote', message)
+        this.$store.dispatch('setError', "Type not selected!")
         return false;
       }
 
       if (this.note.description === '') {
-        message = "Description can't be blank!";
-        this.$emit('addNote', message)
+        this.$store.dispatch('setError', "Description can't be blank!")
         return false;
       }
 
-      this.$emit('addNote', this.note)
+      this.$store.dispatch('addNote', this.note)
     }
+  },
+  computed: {
+    types(){
+      return this.$store.getters.getPriorityList;
+    },
+    note(){
+      return this.$store.getters.getNote;
+    },
   }
 }
 </script>
@@ -60,7 +51,6 @@ export default {
 <style lang="scss" scoped>
 .new-note {
   text-align: center;
-
   .btn {
     margin: 20px 0;
   }

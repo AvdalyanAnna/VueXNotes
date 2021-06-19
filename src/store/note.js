@@ -35,6 +35,7 @@ export default {
         oldTitle: null,
         filterNotesList:null
     },
+
     mutations: {
         addNote(state, payload) {
             let {title, description, type} = payload;
@@ -75,19 +76,17 @@ export default {
         },
         notesFilter(state, payload) {
             let array = state.notesList,
-                search = payload.search,
-                type = payload.type;
+                {search,type} = payload;
+            // Small
+            search = search.trim().toLowerCase()
             if (type != 'all') {
+              //Filter
               array = array.filter(function (item) {
                 if (search) {
-                  // Small
-                  search = search.trim().toLowerCase();
-                  //Filter
                   if (item.type.toLowerCase().indexOf(type) !== -1 && item.title.toLowerCase().indexOf(search) !== -1) {
                     return item
                   }
                 } else {
-                  //Filter
                   if (item.type.toLowerCase().indexOf(type) !== -1) {
                     return item
                   }
@@ -95,8 +94,6 @@ export default {
               })
             } else {
               if (!search) return array;
-              // Small
-              search = search.trim().toLowerCase();
               //Filter
               array = array.filter(function (item) {
                 if (item.title.toLowerCase().indexOf(search) !== -1) {
@@ -106,8 +103,8 @@ export default {
             }
             state.filterNotesList = array;
         },
-
     },
+
     actions: {
         addNote({commit}, payload) {
             commit("addNote", payload);
@@ -124,13 +121,11 @@ export default {
         titleOld({commit}, index) {
             commit("titleOld", index);
         },
-        returnText({commit}, text) {
-            commit("returnText", text);
-        },
         notesFilter({commit}, payload) {
             commit("notesFilter", payload);
         },
     },
+
     getters: {
         getNotesList(state) {
             return state.notesList
@@ -140,8 +135,6 @@ export default {
         },
         getNotesByFilter: (state) => {
             return state.filterNotesList;
-
         }
-
     },
 }

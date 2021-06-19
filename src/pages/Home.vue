@@ -3,14 +3,10 @@
     <section>
       <div class="container">
         <!-- message -->
-        <message v-if="message" :message="message"/>
+        <message />
 
         <!-- new note -->
-        <new-note
-            :note="note"
-            :types="priority"
-            @addNote="addNote"/>
-
+        <new-note />
 
         <div class="note-header">
           <!-- title -->
@@ -24,9 +20,7 @@
                 @search=" search = $event "/>
 
             <!-- type -->
-            <filter-type
-                :types="priority"
-                @changeType="changeType"/>
+            <filter-type  @changeType="changeType"/>
           </div>
 
 
@@ -55,11 +49,7 @@
         <!-- note list -->
         <notes
             :notes="notesFilter"
-            :grid="grid"
-            @showInput="showInput"
-            @changeTitle="changeTitle"
-            @oldTitle="titleOld"
-            @remove="removeNote"/>
+            :grid="grid"  />
       </div>
     </section>
   </div>
@@ -71,20 +61,13 @@ import NewNote from "@/components/NewNote";
 import Notes from "@/components/Notes";
 import Search from "@/components/Search";
 import FilterType from "@/components/FilterType";
-
 export default {
-  name: 'App',
   data() {
     return {
       title: 'Notes App',
       selectValue: "all",
       search: '',
       grid: true,
-      note: null,
-      notes: null,
-      priority: null,
-      message: null,
-
     }
   },
   components: {
@@ -94,37 +77,7 @@ export default {
     Search,
     FilterType
   },
-  created() {
-    this.notes = this.$store.getters.getNotesList;
-    this.priority = this.$store.getters.getPriorityList;
-    this.note = this.$store.getters.getNote;
-  },
-
   methods: {
-    addNote(message) {
-      if (typeof message == 'string') {
-        this.message = message;
-        return false
-      }
-      this.$store.dispatch('addNote', message)
-    },
-
-    removeNote(index) {
-      this.$store.dispatch('removeNote', index)
-    },
-
-    showInput(index) {
-      this.$store.dispatch('showInput', index)
-    },
-
-    changeTitle(index) {
-      this.$store.dispatch('changeTitle', index)
-    },
-
-    titleOld(index) {
-      this.$store.dispatch('titleOld', index)
-    },
-
     changeType(selectValue) {
       this.selectValue = selectValue.toLowerCase();
       let array ={
@@ -134,7 +87,7 @@ export default {
       this.$store.dispatch('notesFilter', array)
     },
     searchKeyUp(){
-      let array ={
+      let array = {
         type:this.selectValue,
         search:this.search,
       }
@@ -153,6 +106,9 @@ export default {
       }else{
         return array;
       }
+    },
+    notes(){
+      return this.$store.getters.getNotesList;
     }
   }
 

@@ -44,14 +44,12 @@ export default {
     search(val) {
       this.$emit('search', val);
     },
-
   },
   methods: {
     inputKeyup() {
       this.$emit('inputKeyup');
     }
   }
-
 }
 </script>
 

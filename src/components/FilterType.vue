@@ -7,13 +7,6 @@
 
 <script>
 export default {
-  name: "FilterType",
-  props: {
-    types: {
-      type: Array,
-      required: true,
-    }
-  },
   data(){
     return{
       selectValue:"All"
@@ -23,6 +16,11 @@ export default {
     changeType(selectValue){
       this.$emit('changeType', selectValue)
     }
+  },
+  computed: {
+    types(){
+      return this.$store.getters.getPriorityList;
+    },
   }
 }
 </script>
